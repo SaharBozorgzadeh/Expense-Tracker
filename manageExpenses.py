@@ -4,7 +4,7 @@ from expense import Expense
 from Menu import menu
 
 
-def addExpenses():
+def add_expenses():
 
     while True:
 
@@ -43,7 +43,7 @@ def addExpenses():
         break
 
 
-def viewExpenses():
+def view_expenses():
     if not expensesList:
         print("No expenses found.")
     else:
@@ -56,7 +56,7 @@ def viewExpenses():
     return
 
 
-def editExpenses():
+def edit_expenses():
     # Find the expense by ID
     expense_id = int(input("Please enter expense ID: "))
     expense = next((i for i in expensesList if i.id == expense_id), None)
@@ -102,3 +102,4 @@ def editExpenses():
     if not new_date.strip():
         new_date = datetime.date.today().isoformat()
     expense.date = new_date
+    return
