@@ -1,7 +1,6 @@
 import datetime
 from data import expensesList
 from expense import Expense
-from Menu import menu
 
 
 def add_expenses():
@@ -39,9 +38,8 @@ def add_expenses():
         new_id = len(expensesList) + 1
         expense = Expense(amount, category, description, date, new_id)
         expensesList.append(expense)
-        menu()
         break
-
+    return
 
 def view_expenses():
     if not expensesList:
@@ -52,7 +50,6 @@ def view_expenses():
             print(
                 f"{expense.id:<5}{expense.date:<15}{expense.category:<15}{expense.amount:<12}{expense.description}"
             )
-    menu()
     return
 
 
@@ -62,7 +59,6 @@ def edit_expenses():
     expense = next((i for i in expensesList if i.id == expense_id), None)
     if expense is None:
         print("There is no such expense")
-        menu()
         return
 
     # Change the amount
@@ -72,12 +68,10 @@ def edit_expenses():
 
         if new_amount <= 0:
             print("Amount must be bigger than 0, editing failed")
-            menu()
             return
         expense.amount = new_amount
     except ValueError:
         print("Amount must be a number!, editing failed")
-        menu()
         return
     
 
@@ -87,7 +81,6 @@ def edit_expenses():
 
     if not new_category.strip():
         print("Category cannot be empty.")
-        menu()
         return
     expense.category = new_category
 
@@ -104,7 +97,6 @@ def edit_expenses():
     expense.date = new_date
 
     print("Expense was edited successfully!")
-    menu()
     return
 
 def delete_expenses() :
@@ -112,13 +104,11 @@ def delete_expenses() :
     expense = next((i for i in expensesList if i.id == expense_id), None)
     if expense is None:
         print("There is no such expense")
-        menu()
         return
     answer = input("Are you sure?(y/n)")
     if answer.lower() == 'y':
         expensesList.remove(expense)
         print("Expense was deleted successfully!")
-    menu()
     return
 
 def search_expense():
@@ -129,7 +119,6 @@ def search_expense():
         print("There is no such expense")
     else:
         print(results)
-    menu()
     return
 
 def filter_expenses():
@@ -143,18 +132,19 @@ def filter_expenses():
     
         if choice > 4 or choice < 1:
             print("Please enter a number from the menu.\n")
-            menu()
             return
     
     except ValueError:
         print("Please enter a valid number from the menu.\n")
-        menu()
         return
     
-    if choice == 1: filter_by_amount()
-    elif choice == 2: filter_by_date()
-    elif choice == 3: filter_by_category()
-    else menu()
+    if choice == 1:
+        filter_by_amount()
+    elif choice == 2:
+        filter_by_date()
+    elif choice == 3:
+        filter_by_category()
+
     return
 
 # Filter helper functions
@@ -174,7 +164,6 @@ def filter_by_amount():
     else:
         for i in results:
             print(i)
-    menu()
     return
 
 def filter_by_date():
@@ -185,7 +174,6 @@ def filter_by_date():
     else:
         for i in results:
             print(i)
-    menu()
     return
 
 def filter_by_category():
@@ -196,5 +184,4 @@ def filter_by_category():
     else:
         for i in results:
             print(i)
-    menu()
     return
