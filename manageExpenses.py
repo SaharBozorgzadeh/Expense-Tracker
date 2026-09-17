@@ -1,4 +1,6 @@
 import datetime
+from data import expensesList
+from expense import Expense
 
 
 def addExpenses():
@@ -27,9 +29,13 @@ def addExpenses():
         description = input("Description: ")
 
         date = input("Date: ")
-
         if not date.strip():
             date = datetime.date.today().isoformat()
-        #date format should be checked
-        #it should be added to the expenses later
+
+        # TODO: Validate the date format
+
+        # Add the new expense to the list
+        new_id = len(expensesList) + 1
+        expense = Expense(amount, category, description, date, new_id)
+        expensesList.append(expense)
         break
