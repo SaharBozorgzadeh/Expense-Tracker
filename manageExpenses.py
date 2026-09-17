@@ -103,6 +103,7 @@ def edit_expenses():
         new_date = datetime.date.today().isoformat()
     expense.date = new_date
 
+    print("Expense was edited successfully!")
     menu()
     return
 
@@ -120,3 +121,13 @@ def delete_expenses() :
     menu()
     return
 
+def search_expense():
+    description = input("Enter expense's description: ")
+
+    results = [i for i in expensesList if i.description == description]
+    if not results:
+        print("There is no such expense")
+    else:
+        print(results)
+    menu()
+    return
