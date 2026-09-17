@@ -131,3 +131,70 @@ def search_expense():
         print(results)
     menu()
     return
+
+def filter_expenses():
+    print("choose based on what you want to filter the expenses:")
+    print("1.Amount")
+    print("2.Date")
+    print("3.Category")
+    print("4.back")
+    try:
+        choice = int(input("Choose an option: "))
+    
+        if choice > 4 or choice < 1:
+            print("Please enter a number from the menu.\n")
+            menu()
+            return
+    
+    except ValueError:
+        print("Please enter a valid number from the menu.\n")
+        menu()
+        return
+    
+    if choice == 1: filter_by_amount()
+    elif choice == 2: filter_by_date()
+    elif choice == 3: filter_by_category()
+    else menu()
+    return
+
+# Filter helper functions
+
+def filter_by_amount():
+    try:
+        max_amount = float(input("Enter maximum range:"))
+        min_amount = float(input("Enter minimum range"))
+    except ValueError:
+        print("you should enter a number only")
+        filter_expenses()
+        return
+  
+    results = [i for i in expensesList if i.amount <= max_amount and i.amount >= min_amount]
+    if not results:
+        print("There is no such expense")
+    else:
+        for i in results:
+            print(i)
+    menu()
+    return
+
+def filter_by_date():
+    date = input("Enter date:")
+    results = [i for i in expensesList if i.date == date]
+    if not results:
+        print("There is no such expense")
+    else:
+        for i in results:
+            print(i)
+    menu()
+    return
+
+def filter_by_category():
+    category = input("Enter category:")
+    results = [i for i in expensesList if i.category == category]
+    if not results:
+        print("There is no such expense")
+    else:
+        for i in results:
+            print(i)
+    menu()
+    return
