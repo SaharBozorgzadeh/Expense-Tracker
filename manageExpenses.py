@@ -1,6 +1,7 @@
 import datetime
 from data import expensesList
 from expense import Expense
+from Menu import menu
 
 
 def addExpenses():
@@ -38,4 +39,14 @@ def addExpenses():
         new_id = len(expensesList) + 1
         expense = Expense(amount, category, description, date, new_id)
         expensesList.append(expense)
+        menu()
         break
+
+def viewExpenses() :
+    if not expensesList:
+        print("No expenses found.")
+    else :
+       print(f"{'ID':<5}{'Date':<15}{'Category':<15}{'Amount':<12}{'Description'}")
+    for expense in expensesList:
+        print(f"{expense.id:<5}{expense.date:<15}{expense.category:<15}{expense.amount:<12}{expense.description}")
+    menu()
