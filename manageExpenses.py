@@ -102,4 +102,21 @@ def edit_expenses():
     if not new_date.strip():
         new_date = datetime.date.today().isoformat()
     expense.date = new_date
+
+    menu()
     return
+
+def delete_expenses() :
+    expense_id = int(input("Please enter expense ID: "))
+    expense = next((i for i in expensesList if i.id == expense_id), None)
+    if expense is None:
+        print("There is no such expense")
+        menu()
+        return
+    answer = input("Are you sure?(y/n)")
+    if answer.lower() == 'y':
+        expensesList.remove(expense)
+        print("Expense was deleted successfully!")
+    menu()
+    return
+
