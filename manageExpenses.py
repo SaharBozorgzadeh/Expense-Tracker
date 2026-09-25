@@ -225,6 +225,8 @@ def statistics():
     print("Lowes Expense:")
     print(lowest_expense.amount ,"-", lowest_expense.category)
     category_statistics()
+    daily_spending()
+    monthly_spending()
 
 def category_statistics();
     spending_by_category = {}
@@ -237,3 +239,30 @@ def category_statistics();
 
     for category, amount in spending_by_category.items():
         print(category, amount)
+
+def daily_spending():
+    daily_total = 0
+
+    for expense in expensesList:
+        if expense.date == datetime.date.today().isoformat():
+            daily_total += expense.amount
+
+    print(f"Daily spending: {daily_total}")
+
+def monthly_spending():
+    monthly_expenses = {}
+
+    today = datetime.date.today()
+
+    for expense in expensesList:
+        expense_year = int(expense.date[:4])
+        expense_month = int(expense.date[5:7])
+
+        if expense_year == today.year and expense_month == today.month:
+            if expense.date not in monthly_expenses:
+                monthly_expenses[expense.date] = 0
+
+            monthly_expenses[expense.date] += expense.amount
+
+    for date, amount in monthly_expenses.items():
+        print(date, amount)
