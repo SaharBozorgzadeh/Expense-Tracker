@@ -1,7 +1,10 @@
 import datetime
+import data
 from data import expensesList
 from expense import Expense
 
+def load_from_file():
+   data.load()
 
 def add_expenses():
 
@@ -228,7 +231,7 @@ def statistics():
     daily_spending()
     monthly_spending()
 
-def category_statistics();
+def category_statistics():
     spending_by_category = {}
 
     for expense in expensesList:

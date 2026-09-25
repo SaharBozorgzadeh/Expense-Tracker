@@ -1,4 +1,5 @@
 import manageExpenses
+from data import save
 
 def menu():
     print("1. Add Expense")
@@ -48,6 +49,7 @@ def option_opener(choice):
             manageExpenses.statistics()
             pass
         case 8:
+            save()
             print("Goodbye!")
             return
     start()
@@ -64,4 +66,5 @@ for i in range(20):
     print("=", end="")
 
 print("\n")
+manageExpenses.load_from_file()
 start()
