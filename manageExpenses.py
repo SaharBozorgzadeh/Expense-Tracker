@@ -31,11 +31,15 @@ def add_expenses():
 
         description = input("Description: ")
 
-        date = input("Date: ")
+        date = input("Date (YYYY-MM-DD): ")
         if not date.strip():
             date = datetime.date.today().isoformat()
 
-        # TODO: Validate the date format
+        try:
+            datetime.strptime(date, "%Y-%m-%d")
+        except ValueError:
+            print("Invalid date. Please use YYYY-MM-DD.")
+            continue
 
         # Add the new expense to the list
         new_id = len(expensesList) + 1
@@ -96,7 +100,12 @@ def edit_expenses():
     print(f"Current date: {expense.date}")
     new_date = input("Date: ")
     if not new_date.strip():
-        new_date = datetime.date.today().isoformat()
+        new_date = expense.date
+    try:
+        datetime.strptime(new_date, "%Y-%m-%d")
+    except ValueError:
+        print("Invalid date. Please use YYYY-MM-DD.")
+        return
     expense.date = new_date
 
     print("Expense was edited successfully!")
