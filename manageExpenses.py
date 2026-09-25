@@ -185,3 +185,42 @@ def filter_by_category():
         for i in results:
             print(i)
     return
+
+def show_stats_title():
+    for i in range(20):
+        print("=", end="")
+
+    print()
+    print("  Statistics")
+    print()
+
+    for i in range(20):
+        print("=", end="")
+
+    print("\n")
+
+
+def statistics():
+    show_stats_title()
+    if not expensesList:
+        print("No expenses found")
+        return
+    totalExpenses = 0
+    highest_expense = expensesList[0]
+    lowest_expense = expensesList[0]
+    for expense in expensesList:
+        totalExpenses += expense.amount
+        if expense.amount > highest_expense.amount:
+            highest_expense = expense
+        if expense.amount < lowest_expense.amount:
+                lowest_expense = expense
+
+    print(f"Total Expenses: {totalExpenses}")
+    print(f"Number of Expenses: {len(expensesList)}")
+    print(f"Average Expense: {totalExpenses/len(expensesList)}")
+    print("\n")
+    print("Highest Expense:")
+    print(highest_expense.amount,"-", highest_expense.category)
+    print("\n")
+    print("Lowes Expense:")
+    print(lowest_expense.amount ,"-", lowest_expense.category)

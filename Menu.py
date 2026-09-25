@@ -45,7 +45,7 @@ def option_opener(choice):
         case 6:
             manageExpenses.filter_expenses()
         case 7:
-            # TODO: statistics
+            manageExpenses.statistics()
             pass
         case 8:
             print("Goodbye!")
