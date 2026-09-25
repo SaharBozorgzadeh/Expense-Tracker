@@ -224,3 +224,16 @@ def statistics():
     print("\n")
     print("Lowes Expense:")
     print(lowest_expense.amount ,"-", lowest_expense.category)
+    category_statistics()
+
+def category_statistics();
+    spending_by_category = {}
+
+    for expense in expensesList:
+        if expense.category not in spending_by_category:
+            spending_by_category[expense.category] = 0
+
+        spending_by_category[expense.category] += expense.amount
+
+    for category, amount in spending_by_category.items():
+        print(category, amount)
