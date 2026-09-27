@@ -22,7 +22,7 @@ def start():
                 print("Please enter a number from the menu.\n")
                 continue
 
-            print("Opening your selected option...")
+            print("Opening your selected option...\n")
             break
 
         except ValueError:

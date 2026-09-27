@@ -16,17 +16,17 @@ def add_expenses():
             amount = float(input("Amount: "))
 
             if amount <= 0:
-                print("Amount must be bigger than 0")
+                print("Amount must be bigger than 0\n")
                 continue
 
         except ValueError:
-            print("Amount must be a number!")
+            print("Amount must be a number!\n")
             continue
 
         category = input("Category: ")
 
         if not category.strip():
-            print("Category cannot be empty.")
+            print("Category cannot be empty.\n")
             continue
 
         description = input("Description: ")
@@ -36,27 +36,29 @@ def add_expenses():
             date = datetime.date.today().isoformat()
 
         try:
-            datetime.strptime(date, "%Y-%m-%d")
+            datetime.datetime.strptime(date, "%Y-%m-%d")
         except ValueError:
-            print("Invalid date. Please use YYYY-MM-DD.")
+            print("Invalid date. Please use YYYY-MM-DD.\n")
             continue
 
         # Add the new expense to the list
         new_id = len(expensesList) + 1
         expense = Expense(amount, category, description, date, new_id)
         expensesList.append(expense)
+        print("Expense added successfullly!\n")
         break
     return
 
 def view_expenses():
     if not expensesList:
-        print("No expenses found.")
+        print("No expenses found.\n")
     else:
         print(f"{'ID':<5}{'Date':<15}{'Category':<15}{'Amount':<12}{'Description'}")
         for expense in expensesList:
             print(
                 f"{expense.id:<5}{expense.date:<15}{expense.category:<15}{expense.amount:<12}{expense.description}"
             )
+        print("\n")
     return
 
 
@@ -65,7 +67,7 @@ def edit_expenses():
     expense_id = int(input("Please enter expense ID: "))
     expense = next((i for i in expensesList if i.id == expense_id), None)
     if expense is None:
-        print("There is no such expense")
+        print("There is no such expense\n")
         return
 
     # Change the amount
@@ -74,11 +76,11 @@ def edit_expenses():
         new_amount = float(input("New amount: "))
 
         if new_amount <= 0:
-            print("Amount must be bigger than 0, editing failed")
+            print("Amount must be bigger than 0, editing failed\n")
             return
         expense.amount = new_amount
     except ValueError:
-        print("Amount must be a number!, editing failed")
+        print("Amount must be a number!, editing failed\n")
         return
     
 
@@ -87,7 +89,7 @@ def edit_expenses():
     new_category = input("New category: ")
 
     if not new_category.strip():
-        print("Category cannot be empty.")
+        print("Category cannot be empty.\n")
         return
     expense.category = new_category
 
@@ -102,25 +104,25 @@ def edit_expenses():
     if not new_date.strip():
         new_date = expense.date
     try:
-        datetime.strptime(new_date, "%Y-%m-%d")
+        datetime.datetime.strptime(new_date, "%Y-%m-%d")
     except ValueError:
-        print("Invalid date. Please use YYYY-MM-DD.")
+        print("Invalid date. Please use YYYY-MM-DD.\n")
         return
     expense.date = new_date
 
-    print("Expense was edited successfully!")
+    print("Expense was edited successfully!\n")
     return
 
 def delete_expenses() :
     expense_id = int(input("Please enter expense ID: "))
     expense = next((i for i in expensesList if i.id == expense_id), None)
     if expense is None:
-        print("There is no such expense")
+        print("There is no such expense\n")
         return
     answer = input("Are you sure?(y/n)")
     if answer.lower() == 'y':
         expensesList.remove(expense)
-        print("Expense was deleted successfully!")
+        print("Expense was deleted successfully!\n")
     return
 
 def search_expense():
@@ -128,9 +130,10 @@ def search_expense():
 
     results = [i for i in expensesList if i.description == description]
     if not results:
-        print("There is no such expense")
+        print("There is no such expense\n")
     else:
-        print(results)
+        for expense in results:
+            print(expense)
     return
 
 def filter_expenses():
@@ -166,36 +169,39 @@ def filter_by_amount():
         max_amount = float(input("Enter maximum range:"))
         min_amount = float(input("Enter minimum range"))
     except ValueError:
-        print("you should enter a number only")
+        print("you should enter a number only\n")
         filter_expenses()
         return
   
     results = [i for i in expensesList if i.amount <= max_amount and i.amount >= min_amount]
     if not results:
-        print("There is no such expense")
+        print("There is no such expense\n")
     else:
         for i in results:
             print(i)
+        print("\n")
     return
 
 def filter_by_date():
     date = input("Enter date:")
     results = [i for i in expensesList if i.date == date]
     if not results:
-        print("There is no such expense")
+        print("There is no such expense\n")
     else:
         for i in results:
             print(i)
+        print("\n")
     return
 
 def filter_by_category():
     category = input("Enter category:")
     results = [i for i in expensesList if i.category == category]
     if not results:
-        print("There is no such expense")
+        print("There is no such expense\n")
     else:
         for i in results:
             print(i)
+        print("\n")
     return
 
 def show_stats_title():
@@ -215,7 +221,7 @@ def show_stats_title():
 def statistics():
     show_stats_title()
     if not expensesList:
-        print("No expenses found")
+        print("No expenses found\n")
         return
     totalExpenses = 0
     highest_expense = expensesList[0]
@@ -251,7 +257,8 @@ def category_statistics():
 
     for category, amount in spending_by_category.items():
         print(category, amount)
-
+    print("\n")
+        
 def daily_spending():
     daily_total = 0
 
@@ -259,7 +266,7 @@ def daily_spending():
         if expense.date == datetime.date.today().isoformat():
             daily_total += expense.amount
 
-    print(f"Daily spending: {daily_total}")
+    print(f"Daily spending: {daily_total}\n")
 
 def monthly_spending():
     monthly_expenses = {}
@@ -278,3 +285,4 @@ def monthly_spending():
 
     for date, amount in monthly_expenses.items():
         print(date, amount)
+    print("\n")
